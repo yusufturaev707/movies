@@ -52,9 +52,9 @@
                                                         aria-hidden="true"></span></a>
                             <input type="checkbox" id="drop-2">
                             <ul>
-                                <li><a href="moviesingle.html">Фильмы</a></li>
-                                <li><a href="moviesingle.html">Сериалы</a></li>
-                                <li><a href="moviesingle.html">Мультфильмы</a></li>
+                                <li><a href="movie_detail.html">Фильмы</a></li>
+                                <li><a href="movie_detail.html">Сериалы</a></li>
+                                <li><a href="movie_detail.html">Мультфильмы</a></li>
                             </ul>
                         </li>
                         <li><a href="contact.html"
@@ -332,7 +332,7 @@
                 <div class="left-ads-display col-lg-8">
                     <div class="row">
                         <div class="desc1-left col-md-6">
-                            <img src="bundles/images/images.jpeg" class="img-fluid" alt="">
+                            <img src="{{ movie.poster.url }}" class="img-fluid" alt="">
                         </div>
                         <div class="desc1-right col-md-6 pl-lg-4">
                             <h3 class="editContent" style="outline: none; cursor: inherit;">{{ movie.title }}</h3>
@@ -420,21 +420,13 @@
                     <div class="row sub-para-w3layouts mt-5">
 
                         <h3 class="shop-sing editContent" style="outline: none; cursor: inherit;">
-                            О фильме Терминатор: Темные судьбы</h3>
+                           {{ movie.title }}</h3>
                         <p>
                             <img src="bundles/images/about.jpg" class="img-fluid" alt="">
                             <img src="bundles/images/admin.jpg" class="img-fluid" alt="">
                             <img src="bundles/images/d1.jpg" class="img-fluid" alt="">
                         </p>
-                        <p class="editContent" style="outline: none; cursor: inherit;">Сара Коннор
-                            превратилась в настоящую охотницу
-                            за терминаторами и теперь занимается уничтожением роботов-убийц из
-                            будущего.
-                            Она считала, что главное — это не дать им добраться до Джона, но теперь
-                            появилась
-                            Дани Рамос, от выживания которой также зависит судьба человечества.
-                            Вместе с ней в бой вступает и загадочная Грейс, смесь человека и
-                            машины.</p>
+                        <p class="editContent" style="outline: none; cursor: inherit;">{{ movie.discription }}.</p>
                         <p class="mt-3 italic-blue editContent"
                            style="outline: none; cursor: inherit;">
                             <iframe width="560" height="315"
