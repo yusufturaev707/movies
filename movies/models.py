@@ -4,6 +4,9 @@ from django.db import models
 
 
 # Create your models here.
+from django.urls import reverse
+
+
 class Category(models.Model):
     name = models.CharField('Kategoriya', max_length=150)
     description = models.TextField("Description")
@@ -47,7 +50,7 @@ class Genre(models.Model):
 class Movies(models.Model):
     title = models.CharField('Title', max_length=100)
     tagline = models.CharField('Tagline', max_length=100, default='')
-    discription = models.TextField('Description')
+    descriptions = models.TextField('Description')
     poster = models.ImageField('Poster', upload_to="movies/")
     year = models.PositiveSmallIntegerField('Chiqqan yil', default=2019)
     country = models.CharField('Davlat', max_length=30)
@@ -65,14 +68,20 @@ class Movies(models.Model):
     def __str__(self):
         return self.title
 
+    def get_absolute_url(self):
+        return reverse("movie_detail", kwargs={"slug": self.url})
+
+    def get_review(self):
+        return self.reviews_set.filter(parent__isnull=True)
+
     class Meta:
         verbose_name = "Kino"
         verbose_name_plural = "Kinolar"
 
 
-class Movie_shots(models.Model):
+class MovieShots(models.Model):
     title = models.CharField('Title', max_length=100)
-    discription = models.TextField('Description')
+    descriptions = models.TextField('Description')
     image = models.ImageField('Rasm', upload_to="movie_shots/")
     movie = models.ForeignKey(Movies, verbose_name='Kino', on_delete=models.CASCADE)
 
