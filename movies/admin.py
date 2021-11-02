@@ -97,7 +97,7 @@ class MoviesAdmin(admin.ModelAdmin):
         self.message_user(request, f"{message_bit}")
 
     publish.short_description = "Publikatsiya"
-    publish.allowed_permissions = ("change", )
+    publish.allowed_permissions = ("change",)
 
     unpublish.short_description = "Unpublikatsiya"
     unpublish.allowed_permissions = ("change",)
@@ -118,8 +118,8 @@ class RatingStarAdmin(admin.ModelAdmin):
 
 @admin.register(Rating)
 class RatingAdmin(admin.ModelAdmin):
-    list_display = ['id', 'ip', 'star', 'movie']
-    list_display_links = ['id', ]
+    list_display = ['star', 'movie', 'ip']
+    # list_display_links = ['id']
 
 
 @admin.register(Actor)
