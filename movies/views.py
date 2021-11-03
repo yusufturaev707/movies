@@ -20,6 +20,7 @@ class MoviesView(GenreYear, ListView):
     model = Movies
     queryset = Movies.objects.filter(draft=False)
     template_name = "movies/movies.html"
+    paginate_by = 1
 
     # def get_context_data(self, *args, **kwargs):
     #     context = super().get_context_data(*args, **kwargs)
@@ -35,6 +36,7 @@ class MovieDetailView(GenreYear, DetailView):
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(**kwargs)
         context["star_form"] = RatingForm()
+        context["form"] = ReviewForm()
         return context
 
 
@@ -59,6 +61,7 @@ class ActorView(DetailView):
 
 class FilterMoviesView(GenreYear, ListView):
     template_name = "movies/movies.html"
+    paginate_by = 2
 
     def get_queryset(self):
         queryset = Movies.objects.filter(
@@ -66,6 +69,12 @@ class FilterMoviesView(GenreYear, ListView):
             Q(genres__in=self.request.GET.getlist("genre"))
         )
         return queryset
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context["year"] = ''.join([f"year={x}&" for x in self.request.GET.getlist("year")])
+        context["genre"] = ''.join([f"genre={x}&" for x in self.request.GET.getlist("genre")])
+        return context
 
 
 class JsonFilterMoviesView(ListView):
@@ -103,3 +112,17 @@ class AddStarRating(View):
             return HttpResponse(status=201)
         else:
             return HttpResponse(status=400)
+
+
+class Search(ListView):
+    """Поиск фильмов"""
+    template_name = "movies/movies.html"
+    paginate_by = 3
+
+    def get_queryset(self):
+        return Movies.objects.filter(title__icontains=self.request.GET.get("q"))
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context["q"] = f'q={self.request.GET.get("q")}&'
+        return context

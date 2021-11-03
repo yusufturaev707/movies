@@ -1,15 +1,17 @@
 {% load movie_tag %}
 
 <div class="search-bar w3layouts-newsletter">
-    <h3 class="sear-head editContent">Поиск фильма</h3>
-    <form action="#" method="post" class="d-flex editContent">
-        <input type="search" placeholder="Введите название..." name="search" class="form-control"
+    <h3 class="sear-head editContent">Search Movie</h3>
+    <form action="{% url 'search' %}" method="GET" class="d-flex editContent">
+        <input type="search" placeholder="Search..." name="q" class="form-control"
                required="">
-        <button class="btn1 btn"><span class="fa fa-search" aria-hidden="true"></span></button>
+        <button type="submit" class="btn1 btn">
+            <span class="fa fa-search" aria-hidden="true"></span>
+        </button>
     </form>
 </div>
 
-<form action="{% url 'json_filter' %}" method="GET" name="filter">
+<form action="{% url 'filter' %}" method="GET" name="filter">
     <div class="left-side my-4">
         <h3 class="sear-head editContent">Жанры</h3>
         <ul class="w3layouts-box-list">

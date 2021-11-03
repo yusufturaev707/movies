@@ -113,13 +113,14 @@ class ReviewsAdmin(admin.ModelAdmin):
 @admin.register(RatingStar)
 class RatingStarAdmin(admin.ModelAdmin):
     list_display = ['id', 'value', ]
-    list_display_links = ['id', ]
+    # list_display_links = ['id', ]
 
 
 @admin.register(Rating)
 class RatingAdmin(admin.ModelAdmin):
     list_display = ['star', 'movie', 'ip']
     # list_display_links = ['id']
+    list_filter = ['star']
 
 
 @admin.register(Actor)
