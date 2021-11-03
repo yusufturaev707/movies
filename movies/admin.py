@@ -4,10 +4,13 @@ from django.utils.safestring import mark_safe
 
 from .models import *
 from ckeditor_uploader.widgets import CKEditorUploadingWidget
+from modeltranslation.admin import TranslationAdmin
 
 
 class MoviesAdminForm(forms.ModelForm):
-    descriptions = forms.CharField(label="Opisaniya", widget=CKEditorUploadingWidget())
+    description_ru = forms.CharField(label="Описание", widget=CKEditorUploadingWidget())
+    description_en = forms.CharField(label="Description", widget=CKEditorUploadingWidget())
+    # description_uz = forms.CharField(label="Tavsif", widget=CKEditorUploadingWidget())
 
     class Meta:
         model = Movies
@@ -15,7 +18,7 @@ class MoviesAdminForm(forms.ModelForm):
 
 
 @admin.register(Category)
-class CategoryAdmin(admin.ModelAdmin):
+class CategoryAdmin(TranslationAdmin):
     list_display = ['id', 'name', 'url']
     list_display_links = ['id', ]
 
@@ -38,7 +41,7 @@ class MovieShotsInline(admin.TabularInline):
 
 
 @admin.register(Movies)
-class MoviesAdmin(admin.ModelAdmin):
+class MoviesAdmin(TranslationAdmin):
     list_display = ['id', 'title', 'poster', 'year', 'country', 'category', 'url', 'draft']
     list_display_links = ['id', ]
     list_filter = ['category', 'year']
@@ -124,7 +127,7 @@ class RatingAdmin(admin.ModelAdmin):
 
 
 @admin.register(Actor)
-class ActorAdmin(admin.ModelAdmin):
+class ActorAdmin(TranslationAdmin):
     list_display = ['id', 'name', 'age', 'get_image']
     list_display_links = ['id', ]
     readonly_fields = ("get_image",)
@@ -136,7 +139,7 @@ class ActorAdmin(admin.ModelAdmin):
 
 
 @admin.register(MovieShots)
-class MovieShotsAdmin(admin.ModelAdmin):
+class MovieShotsAdmin(TranslationAdmin):
     list_display = ['id', 'title', 'get_image', 'movie']
     list_display_links = ['id', ]
     readonly_fields = ("get_image",)
@@ -148,7 +151,7 @@ class MovieShotsAdmin(admin.ModelAdmin):
 
 
 @admin.register(Genre)
-class GenreAdmin(admin.ModelAdmin):
+class GenreAdmin(TranslationAdmin):
     list_display = ['id', 'name', 'url']
     list_display_links = ['id', ]
 
