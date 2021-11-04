@@ -17,7 +17,7 @@
             <ul class="menu mt-2">
                 <li class="active"><a href="{% url 'movies_list' %}">Home</a></li>
                 <li>
-                 <li class=""><a href="/about/">About</a></li>
+                <li class=""><a href="/about/">About</a></li>
                 <li>
                     <!-- First Tier Drop Down -->
                     <label for="drop-2" class="toggle">Categories <span class="fa fa-angle-down"
@@ -31,11 +31,29 @@
                         {% endfor %}
                     </ul>
                 </li>
-                <li><a href="/"
-                       style="color: rgb(255, 255, 255); font-weight: 700; text-transform: uppercase;">Login</a>
+                <li>
+                    {% if user.is_authenticated %}
+                        <span>{{ user.username }}</span>
+                        <a href="{% url 'account_logout' %}"
+                           style="color: rgb(255, 255, 255);
+                       font-weight: 700; text-transform: uppercase;">
+                            Logout
+                        </a>
+                    {% else %}
+                        <a href="{% url 'account_login' %}"
+                           style="color: rgb(255, 255, 255);
+                       font-weight: 700; text-transform: uppercase;">
+                            Login
+                        </a>
+                        <a href="{% url 'account_signup' %}"
+                           style="color: rgb(255, 255, 255);
+                       font-weight: 700; text-transform: uppercase;">
+                            Signup
+                        </a>
+                    {% endif %}
                 </li>
-            <li>
-                <form action="{% url 'set_language' %}" method="post">{% csrf_token %}
+                <li>
+                    <form action="{% url 'set_language' %}" method="post">{% csrf_token %}
                         <input name="next" type="hidden" value="{{ redirect_to }}">
                         <select name="language">
                             {% get_current_language as LANGUAGE_CODE %}
@@ -50,7 +68,7 @@
                         </select>
                         <input type="submit" value="Go">
                     </form>
-            </li>
+                </li>
             </ul>
         </nav>
     </div>
