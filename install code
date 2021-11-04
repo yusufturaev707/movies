@@ -1,0 +1,5 @@
+pip install django-modeltranslation
+python manage.py update_translate_fields
+django-admin makemessages -l en -e html
+django-admin compilemessages
+https://github.com/pennersr/django-allauth/tree/master/allauth/templates
